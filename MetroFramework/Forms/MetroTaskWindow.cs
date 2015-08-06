@@ -57,7 +57,9 @@ namespace MetroFramework.Forms
             {
                 singletonWindow.Theme = ((IMetroForm)parent).Theme;
                 singletonWindow.Style = ((IMetroForm)parent).Style;
-                singletonWindow.StyleManager = ((IMetroForm)parent).StyleManager.Clone(singletonWindow) as MetroStyleManager;
+
+                if (((IMetroForm)parent).StyleManager != null)
+                    singletonWindow.StyleManager = ((IMetroForm)parent).StyleManager.Clone(singletonWindow) as MetroStyleManager;
             }
 
             singletonWindow.Show();

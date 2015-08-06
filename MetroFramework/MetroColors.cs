@@ -21,10 +21,10 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System.Drawing;
-
 namespace MetroFramework
 {
+    using System.Drawing;
+
     public sealed class MetroColors
     {
         public static Color Black

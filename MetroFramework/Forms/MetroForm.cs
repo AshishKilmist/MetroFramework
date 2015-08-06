@@ -21,24 +21,23 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Security;
-using System.Windows.Forms;
-
-using MetroFramework.Components;
-using MetroFramework.Drawing;
-using MetroFramework.Interfaces;
-using MetroFramework.Native;
 
 namespace MetroFramework.Forms
 {
+    using System;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
+    using System.ComponentModel;
+    using System.Collections.Generic;
+    using System.Security;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+    using MetroFramework.Native;
+
     #region Enums
 
     public enum MetroFormTextAlign
@@ -61,14 +60,6 @@ namespace MetroFramework.Forms
     {
         None,
         FixedSingle
-    }
-
-    public enum BackLocation
-    {
-        TopLeft,
-        TopRight,
-        BottomLeft,
-        BottomRight
     }
 
     #endregion
@@ -156,32 +147,14 @@ namespace MetroFramework.Forms
             get { return base.Padding; }
             set
             {
-                value.Top = Math.Max(value.Top, DisplayHeader ? 60 : 30);
+                value.Top = Math.Max(value.Top, 30);
                 base.Padding = value;
             }
         }
 
         protected override Padding DefaultPadding
         {
-            get { return new Padding(20, DisplayHeader ? 60 : 20, 20, 20); }
-        }
-
-        private bool displayHeader = true;
-        [Category(MetroDefaults.PropertyCategory.Appearance)]
-        [DefaultValue(true)]
-        public bool DisplayHeader
-        {
-            get { return displayHeader; }
-            set 
-            {
-                if (value != displayHeader)
-                {
-                    Padding p = base.Padding;
-                    p.Top += value ? 30 : -30;
-                    base.Padding = p;
-                }
-                displayHeader = value;
-            }
+            get { return new Padding(1, 30, 1, 1); }
         }
 
         private bool isResizable = true;
@@ -192,9 +165,9 @@ namespace MetroFramework.Forms
             set { isResizable = value; }
         }
 
-        private MetroFormShadowType shadowType = MetroFormShadowType.Flat;
+        private MetroFormShadowType shadowType = MetroFormShadowType.None;
         [Category(MetroDefaults.PropertyCategory.Appearance)]
-        [DefaultValue(MetroFormShadowType.Flat)]
+        [DefaultValue(MetroFormShadowType.None)]
         public MetroFormShadowType ShadowType
         {
             get { return IsMdiChild ? MetroFormShadowType.None : shadowType; }
@@ -225,70 +198,6 @@ namespace MetroFramework.Forms
 
         private const int borderWidth = 5;
 
-        private Bitmap _image = null;
-        private Image backImage;
-        [Category(MetroDefaults.PropertyCategory.Appearance)]
-        [DefaultValue(null)]
-        public Image BackImage
-        {
-            get { return backImage; }
-            set
-            {
-                backImage = value;
-                if(value != null) _image = ApplyInvert(new Bitmap(value));
-                Refresh();
-            }
-        }
-
-        private Padding backImagePadding;
-        [Category(MetroDefaults.PropertyCategory.Appearance)]
-        public Padding BackImagePadding
-        {
-            get { return backImagePadding; }
-            set
-            {
-                backImagePadding = value;
-                Refresh();
-            }
-        }
-
-        private int backMaxSize;
-        [Category(MetroDefaults.PropertyCategory.Appearance)]
-        public int BackMaxSize
-        {
-            get { return backMaxSize; }
-            set
-            {
-                backMaxSize = value;
-                Refresh();
-            }
-        }
-
-        private BackLocation backLocation;
-        [Category(MetroDefaults.PropertyCategory.Appearance)]
-        [DefaultValue(BackLocation.TopLeft)]
-        public BackLocation BackLocation
-        {
-            get { return backLocation; }
-            set
-            {
-                backLocation = value;
-                Refresh();
-            }
-        }
-
-        private bool _imageinvert;
-        [Category(MetroDefaults.PropertyCategory.Appearance)]
-        [DefaultValue(true)]
-        public bool ApplyImageInvert
-        {
-            get { return _imageinvert; }
-            set
-            {
-                _imageinvert = value;
-                Refresh();
-            }
-        }
         #endregion
 
         #region Constructor
@@ -320,32 +229,6 @@ namespace MetroFramework.Forms
 
         #region Paint Methods
 
-        public Bitmap ApplyInvert(Bitmap bitmapImage)
-        {
-            byte A, R, G, B;
-            Color pixelColor;
-
-            for (int y = 0; y < bitmapImage.Height; y++)
-            {
-                for (int x = 0; x < bitmapImage.Width; x++)
-                {
-                    pixelColor = bitmapImage.GetPixel(x, y);
-                    A = pixelColor.A;
-                    R = (byte)(255 - pixelColor.R);
-                    G = (byte)(255 - pixelColor.G);
-                    B = (byte)(255 - pixelColor.B);
-
-                    if (R <= 0) R= 17;
-                    if (G <= 0) G= 17;
-                    if (B <= 0) B= 17;
-                    //bitmapImage.SetPixel(x, y, Color.FromArgb((int)A, (int)R, (int)G, (int)B));
-                    bitmapImage.SetPixel(x, y, Color.FromArgb((int)R, (int)G, (int)B));
-                }
-            }
-
-            return bitmapImage;
-        }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             Color backColor = MetroPaint.BackColor.Form(Theme);
@@ -355,17 +238,15 @@ namespace MetroFramework.Forms
 
             using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
             {
-                Rectangle topRect = new Rectangle(0, 0, Width, borderWidth);
+                Rectangle topRect = new Rectangle(0, 0, Width, 32);
                 e.Graphics.FillRectangle(b, topRect);
             }
 
             if (BorderStyle != MetroFormBorderStyle.None)
-            {
-                Color c = MetroPaint.BorderColor.Form(Theme);
-
-                using (Pen pen = new Pen(c))
+            {   
+                using (Pen p = MetroPaint.GetStylePen(Style))
                 {
-                    e.Graphics.DrawLines(pen, new[]
+                    e.Graphics.DrawLines(p, new[]
                         {
                             new Point(0, borderWidth),
                             new Point(0, Height - 1),
@@ -375,38 +256,11 @@ namespace MetroFramework.Forms
                 }
             }
 
-            if (backImage != null && backMaxSize != 0)
-            {
-                Image img = MetroImage.ResizeImage(backImage, new Rectangle(0, 0, backMaxSize, backMaxSize));
-                if (_imageinvert)
-                {
-                    img = MetroImage.ResizeImage((Theme == MetroThemeStyle.Dark) ? _image : backImage, new Rectangle(0, 0, backMaxSize, backMaxSize));
-                }
+            SizeF stringSize = e.Graphics.MeasureString(Text, MetroFonts.Title);
 
-                switch (backLocation)
-                {
-                    case BackLocation.TopLeft:
-                        e.Graphics.DrawImage(img, 0 + backImagePadding.Left, 0 + backImagePadding.Top);
-                        break;
-                    case BackLocation.TopRight:
-                        e.Graphics.DrawImage(img, ClientRectangle.Right - (backImagePadding.Right + img.Width), 0 + backImagePadding.Top);
-                        break;
-                    case BackLocation.BottomLeft:
-                        e.Graphics.DrawImage(img, 0 + backImagePadding.Left, ClientRectangle.Bottom - (img.Height + backImagePadding.Bottom));
-                        break;
-                    case BackLocation.BottomRight:
-                        e.Graphics.DrawImage(img, ClientRectangle.Right - (backImagePadding.Right + img.Width),
-                                             ClientRectangle.Bottom - (img.Height + backImagePadding.Bottom));
-                        break;
-                }
-            }
-
-            if (displayHeader)
-            {
-                Rectangle bounds = new Rectangle(20, 20, ClientRectangle.Width - 2 * 20, 40);
-                TextFormatFlags flags = TextFormatFlags.EndEllipsis | GetTextFormatFlags();
-                TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Title, bounds, foreColor, flags);
-            }
+            Rectangle bounds = new Rectangle((ClientRectangle.Width / 2) - ((int)stringSize.Width / 2), 4, ClientRectangle.Width - 2 * 20, 24);
+            TextFormatFlags flags = TextFormatFlags.EndEllipsis | GetTextFormatFlags();
+            TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Title, bounds, foreColor, flags);
 
             if (Resizable && (SizeGripStyle == SizeGripStyle.Auto || SizeGripStyle == SizeGripStyle.Show))
             {
@@ -553,9 +407,16 @@ namespace MetroFramework.Forms
                         case (int)WinApi.Messages.SC_MOVE: 
                             if (!Movable) return; 
                             break;
-                        case (int)WinApi.Messages.SC_MAXIMIZE: 
+
+                        case (int)WinApi.Messages.SC_MAXIMIZE:
+                            MetroFormButton btn;
+                            windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
+                            btn.Text = "2";
                             break;
+
                         case (int)WinApi.Messages.SC_RESTORE:
+                            windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
+                            btn.Text = "1";
                             break;
                     }
                     break;
@@ -583,13 +444,8 @@ namespace MetroFramework.Forms
             switch (m.Msg)
             {
                 case (int)WinApi.Messages.WM_GETMINMAXINFO:
+
                     OnGetMinMaxInfo(m.HWnd, m.LParam);
-                    break;
-                 case (int)WinApi.Messages.WM_SIZE:
-                    MetroFormButton btn;
-                    windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
-                    if (WindowState == FormWindowState.Normal) shadowForm.Visible = true;btn.Text = "1";
-                    if(WindowState== FormWindowState.Maximized) btn.Text = "2";
                     break;
             }
         }
@@ -669,7 +525,7 @@ namespace MetroFramework.Forms
 
         #endregion
 
-        #region Window Buttons
+       #region Window Buttons
 
         private enum WindowButtons
         {
@@ -709,7 +565,7 @@ namespace MetroFramework.Forms
             newButton.Style = Style;
             newButton.Theme = Theme;
             newButton.Tag = button;
-            newButton.Size = new Size(25, 20);
+            newButton.Size = new Size(25, 22);
             newButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             newButton.TabStop = false; //remove the form controls from the tab stop
             newButton.Click += WindowButton_Click;
@@ -754,7 +610,7 @@ namespace MetroFramework.Forms
 
             Dictionary<int, WindowButtons> priorityOrder = new Dictionary<int, WindowButtons>(3) { {0, WindowButtons.Close}, {1, WindowButtons.Maximize}, {2, WindowButtons.Minimize} };
 
-            Point firstButtonLocation = new Point(ClientRectangle.Width - borderWidth - 25, borderWidth);
+            Point firstButtonLocation = new Point(ClientRectangle.Width - 26, 1);
             int lastDrawedButtonPosition = firstButtonLocation.X - 25;
 
             MetroFormButton firstButton = null;
@@ -781,7 +637,7 @@ namespace MetroFramework.Forms
 
                     if (firstButton == null || !buttonExists) continue;
 
-                    windowButtonList[button.Value].Location = new Point(lastDrawedButtonPosition, borderWidth);
+                    windowButtonList[button.Value].Location = new Point(lastDrawedButtonPosition, 1);
                     lastDrawedButtonPosition = lastDrawedButtonPosition - 25;
                 }
             }
@@ -1036,7 +892,7 @@ namespace MetroFramework.Forms
             #endregion
         }
 
-        #endregion
+        #endregion 
 
         #region Shadows
 

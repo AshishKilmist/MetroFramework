@@ -21,11 +21,12 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace MetroFramework.Animation
 {
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public sealed class MoveAnimation : AnimationBase
     {
         public void Start(Control control, Point targetPoint, TransitionType transitionType, int duration)

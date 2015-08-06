@@ -21,10 +21,11 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
 
 namespace MetroFramework
 {
+    using System;
+
     internal static class MetroDefaults
     {
         public const MetroColorStyle Style = MetroColorStyle.Blue;

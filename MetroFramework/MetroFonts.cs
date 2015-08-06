@@ -233,12 +233,12 @@ namespace MetroFramework
 
         public static Font Title
         {
-            get { return DefaultLight(24f); }
+            get { return Default(16f); }
         }
 
         public static Font Subtitle
         {
-            get { return Default(14f); }
+            get { return Default(12f); }
         }
 
         public static Font Tile(MetroTileTextSize labelSize, MetroTileTextWeight labelWeight)

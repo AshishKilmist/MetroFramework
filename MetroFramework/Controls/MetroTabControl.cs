@@ -29,23 +29,23 @@
 // http://www.codeproject.com/Articles/12185/A-NET-Flat-TabControl-CustomDraw
 // http://www.codeproject.com/Articles/278/Fully-owner-drawn-tab-control
 
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Design;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Security.Permissions;
-using System.Windows.Forms;
-
-using MetroFramework.Components;
-using MetroFramework.Drawing;
-using MetroFramework.Interfaces;
-using MetroFramework.Native;
-
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Design;
+    using System.Runtime.InteropServices;
+    using System.Security;
+    using System.Security.Permissions;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+    using MetroFramework.Native;
+
     #region MetroTabPageCollection
 
     [ToolboxItem(false)]

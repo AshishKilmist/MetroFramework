@@ -409,14 +409,8 @@ namespace MetroFramework.Forms
                             break;
 
                         case (int)WinApi.Messages.SC_MAXIMIZE:
-                            MetroFormButton btn;
-                            windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
-                            btn.Text = "2";
                             break;
-
                         case (int)WinApi.Messages.SC_RESTORE:
-                            windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
-                            btn.Text = "1";
                             break;
                     }
                     break;
@@ -446,6 +440,23 @@ namespace MetroFramework.Forms
                 case (int)WinApi.Messages.WM_GETMINMAXINFO:
 
                     OnGetMinMaxInfo(m.HWnd, m.LParam);
+                    break;
+
+                case (int)WinApi.Messages.WM_SIZE:
+                    if (windowButtonList != null) {
+                        MetroFormButton btn;
+                        windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
+                        if (WindowState == FormWindowState.Normal) {
+                            if (btn != null)
+                                btn.Text = "1";
+                            if (shadowForm != null)
+                                shadowForm.Visible = true;
+                        }
+                        if (WindowState == FormWindowState.Maximized) {
+                            if (btn != null)
+                                btn.Text = "2";
+                        }
+                    }
                     break;
             }
         }
@@ -525,7 +536,7 @@ namespace MetroFramework.Forms
 
         #endregion
 
-       #region Window Buttons
+        #region Window Buttons
 
         private enum WindowButtons
         {

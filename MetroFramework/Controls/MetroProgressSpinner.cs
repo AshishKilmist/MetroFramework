@@ -21,17 +21,17 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
-using MetroFramework.Components;
-using MetroFramework.Drawing;
-using MetroFramework.Interfaces;
-
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+
     [Designer("MetroFramework.Design.Controls.MetroProgressSpinnerDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
     [ToolboxBitmap(typeof(ProgressBar))]
     public class MetroProgressSpinner : Control, IMetroControl

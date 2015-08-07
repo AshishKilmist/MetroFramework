@@ -21,18 +21,19 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
-using System.ComponentModel;
-using System.Security;
-using System.Windows.Forms;
-
-using MetroFramework.Components;
-using MetroFramework.Drawing;
-using MetroFramework.Interfaces;
 
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.Drawing;
+    using System.ComponentModel;
+    using System.Security;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+
     #region Enums
 
     public enum MetroLabelMode
@@ -576,6 +577,7 @@ namespace MetroFramework.Controls
             baseTextBox.BorderStyle = BorderStyle.None;
 
             Size = GetPreferredSize(Size.Empty);
+            baseTextBox.Size = Size;
 
             baseTextBox.ResumeLayout();
             ResumeLayout();

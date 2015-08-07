@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Media;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using MetroFramework.Forms;
-using MetroFramework.Interfaces;
 
 namespace MetroFramework
 {
+    using System;
+    using System.Drawing;
+    using System.Media;
+    using System.Threading;
+    using System.Windows.Forms;
+
     /// <summary>
     /// Metro-styled message notification.
     /// </summary>
@@ -78,7 +75,7 @@ namespace MetroFramework
 
             if (owner != null)
             {
-                Form _owner = (Form)owner;
+                Form _owner = (owner as Form == null) ? ((UserControl)owner).ParentForm : (Form)owner;
                 
                 //int _minWidth = 500;
                 //int _minHeight = 350;

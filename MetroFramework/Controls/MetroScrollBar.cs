@@ -21,18 +21,20 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Security;
-using System.Windows.Forms;
-using MetroFramework.Components;
-using MetroFramework.Drawing;
-using MetroFramework.Interfaces;
-using MetroFramework.Native;
 
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Security;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+    using MetroFramework.Native;
+
     #region Enums
 
     public enum MetroScrollOrientation

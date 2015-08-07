@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
-using MetroFramework.Interfaces;
-using MetroFramework.Drawing;
-using MetroFramework.Components;
-
+﻿
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+
     [ToolboxBitmap(typeof(DateTimePicker))]
     public class MetroDateTime : DateTimePicker, IMetroControl
     {

@@ -21,17 +21,18 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
-using System.ComponentModel;
-using System.Windows.Forms;
-
-using MetroFramework.Components;
-using MetroFramework.Drawing;
-using MetroFramework.Interfaces;
 
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+
     [Designer("MetroFramework.Design.Controls.MetroButtonDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
     [ToolboxBitmap(typeof(Button))]
     [DefaultEvent("Click")]
@@ -244,6 +245,10 @@ namespace MetroFramework.Controls
                 {
                     backColor = MetroPaint.BackColor.Button.Disabled(Theme);
                 }
+                else if (Highlight && Enabled) 
+                {
+                    backColor = MetroPaint.GetStyleColor(Style);
+                }
                 else
                 {
                     if (!useCustomBackColor)
@@ -312,6 +317,10 @@ namespace MetroFramework.Controls
                 {
                     foreColor = ForeColor;
                 }
+                else if (Highlight) 
+                {
+                    foreColor = MetroPaint.BackColor.Form(Theme);
+                }
                 else if (useStyleColors)
                 {
                     foreColor = MetroPaint.GetStyleColor(Style);
@@ -322,7 +331,7 @@ namespace MetroFramework.Controls
                 }
             }
             
-            using (Pen p = new Pen(borderColor))
+            /*using (Pen p = new Pen(borderColor))
             {
                 Rectangle borderRect = new Rectangle(0, 0, Width - 1, Height - 1);
                 e.Graphics.DrawRectangle(p, borderRect);
@@ -337,7 +346,7 @@ namespace MetroFramework.Controls
                     borderRect = new Rectangle(1, 1, Width - 3, Height - 3);
                     e.Graphics.DrawRectangle(p, borderRect);
                 }
-            }
+            }*/
 
             TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Button(metroButtonSize, metroButtonWeight), ClientRectangle, foreColor, MetroPaint.GetTextFormatFlags(TextAlign));
 

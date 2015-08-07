@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
-using MetroFramework.Interfaces;
-using MetroFramework.Components;
-using MetroFramework;
-using MetroFramework.Drawing;
-using MetroFramework.Controls;
-
+﻿
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Drawing;
+    using MetroFramework.Interfaces;
+
     public partial class MetroGrid : DataGridView, IMetroControl
     {
         #region Interface
@@ -171,13 +168,12 @@ namespace MetroFramework.Controls
         {
             base.OnMouseWheel(e);
 
-            if (e.Delta > 0 && this.FirstDisplayedScrollingRowIndex > 0)
+            if (this.RowCount > 1) 
             {
-                this.FirstDisplayedScrollingRowIndex--;
-            }
-            else if (e.Delta < 0)
-            {
-                this.FirstDisplayedScrollingRowIndex++;
+                if (e.Delta > 0 && this.FirstDisplayedScrollingRowIndex > 0) 
+                    this.FirstDisplayedScrollingRowIndex--;
+                else if (e.Delta < 0)
+                    this.FirstDisplayedScrollingRowIndex++;
             }
         }
 

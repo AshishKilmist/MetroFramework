@@ -21,19 +21,20 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
-using System.ComponentModel;
-using System.Security;
-using System.Windows.Forms;
-
-using MetroFramework.Components;
-using MetroFramework.Interfaces;
-using MetroFramework.Drawing;
-using MetroFramework.Native;
 
 namespace MetroFramework.Controls
 {
+    using System;
+    using System.Drawing;
+    using System.ComponentModel;
+    using System.Security;
+    using System.Windows.Forms;
+
+    using MetroFramework.Components;
+    using MetroFramework.Interfaces;
+    using MetroFramework.Drawing;
+    using MetroFramework.Native;
+
     [ToolboxBitmap(typeof(Panel))]
     public class MetroPanel : Panel, IMetroControl
     {

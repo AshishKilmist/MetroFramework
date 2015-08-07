@@ -27,10 +27,12 @@ namespace MetroFramework.Demo
         {
             var m = new Random();
             int next = m.Next(0, 13);
+            metroStyleManager.Style = (MetroColorStyle)next;
         }
 
         private void metroTile1_Click(object sender, EventArgs e)
         {
+            metroStyleManager.Theme = metroStyleManager.Theme == MetroThemeStyle.Light ? MetroThemeStyle.Dark : MetroThemeStyle.Light;
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
@@ -86,6 +88,10 @@ namespace MetroFramework.Demo
         private void metroButton4_Click(object sender, EventArgs e)
         {
             metroTextBox2.Focus();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e) {
+
         }
     }
 }
